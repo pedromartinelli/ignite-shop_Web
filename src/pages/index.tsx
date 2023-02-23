@@ -1,5 +1,25 @@
+import { HomeContainer, Product } from "@/styles/pages/home";
+import Image from "next/image";
+
+import { camisetas } from "@/constants";
+console.log(camisetas);
+
 export default function Home() {
   return (
-    <h1>teste</h1>
+    <HomeContainer>
+
+      {camisetas.map((camiseta, i) => (
+        <Product key={`${camiseta}-${i}`}>
+
+          <Image src={camiseta.imagem} alt={`${camiseta.nome}`} width={520} height={480} />
+
+          <footer>
+            <strong>{`${camiseta.nome}`}</strong>
+            <span>{`${camiseta.preço}`}</span>
+          </footer>
+        </Product>
+      ))}
+
+    </HomeContainer>
   )
 }
