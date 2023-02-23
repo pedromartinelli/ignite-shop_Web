@@ -2,7 +2,6 @@ import { HomeContainer, Product } from "@/styles/pages/home";
 import Image from "next/image";
 
 import { camisetas } from "@/constants";
-console.log(camisetas);
 
 export default function Home() {
   return (
