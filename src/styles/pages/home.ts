@@ -2,14 +2,21 @@ import { styled } from "..";
 
 export const HomeContainer = styled('main', {
   display: 'flex',
-  gap: '3rem',
-  width: '100%',
-  maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
-  marginLeft: 'auto',
-  minHeight: 656,
+  
+  '@sm': {
+    marginRight: 20,
+    padding: '0',
+    width: '100%',
+    maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
+    marginLeft: 'auto',
+    minHeight: 656,
+    maxHeight: '80vh',
+  },
+
 })
 
 export const Product = styled('a', {
+
   background: 'linear-gradient(180deg, #1ea483 0, #7465d4 100%);',
   borderRadius: 8,
   padding: '0.25rem',
@@ -17,11 +24,18 @@ export const Product = styled('a', {
   position: 'relative',
   overflow: 'hidden',
 
+  margin: '0 auto',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 
+  '@sm': {
+    maxWidth: 'auto',
+  },
+
   img: {
+    maxWidth: 330,
+    minWidth: 330,
     objectFit: 'cover',
   },
 
