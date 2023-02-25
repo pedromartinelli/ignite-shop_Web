@@ -1,6 +1,7 @@
 import camiseta1 from '@/assets/camisetas/1.png'
 import camiseta2 from '@/assets/camisetas/2.png'
 import camiseta3 from '@/assets/camisetas/3.png'
+import camiseta4 from '@/assets/camisetas/4.png'
 
 export const camisetas = [
   {
@@ -20,5 +21,11 @@ export const camisetas = [
     nome: 'Camiseta Z',
     preço: '79,90',
     imagem: `${camiseta3.src}`,
+  },
+  {
+    id: 4,
+    nome: 'Camiseta A',
+    preço: '79,90',
+    imagem: `${camiseta4.src}`,
   },
 ]

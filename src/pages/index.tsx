@@ -5,7 +5,6 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import { camisetas } from "@/constants";
-import { useState } from "react";
 
 export default function Home() {
   const [slideRef] = useKeenSlider<HTMLDivElement>({
@@ -13,6 +12,11 @@ export default function Home() {
     breakpoints: {
       "(min-width: 640px)": {
         slides: { perView: 2, spacing: 36 },
+        vertical: false,
+      },
+
+      "(min-width: 1020px)": {
+        slides: { perView: 3, spacing: 36 },
         vertical: false,
       },
     },
@@ -28,7 +32,6 @@ export default function Home() {
       ref={slideRef}
       className='keen-slider'
     >
-
       {camisetas.map((camiseta, i) => (
         <Product
           key={`${camiseta}-${i}`}
@@ -48,3 +51,4 @@ export default function Home() {
     </HomeContainer >
   )
 }
+
