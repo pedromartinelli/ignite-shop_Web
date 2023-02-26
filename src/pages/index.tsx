@@ -5,8 +5,19 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import { camisetas } from "@/constants";
+import { stripe } from "@/lib/stripe";
+import Stripe from "stripe";
 
-export default function Home() {
+interface HomeProps {
+  products: {
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: number;
+  }[]
+}
+
+export default function Home({ products }: HomeProps) {
   const [slideRef] = useKeenSlider<HTMLDivElement>({
 
     breakpoints: {
@@ -27,22 +38,23 @@ export default function Home() {
     },
   })
 
+  console.log(products)
+
   return (
     <HomeContainer
       ref={slideRef}
       className='keen-slider'
     >
-      {camisetas.map((camiseta, i) => (
+      {products.map((product, i) => (
         <Product
-          key={`${camiseta}-${i}`}
+          key={product.id}
           className='keen-slider__slide'
         >
-
-          <Image src={camiseta.imagem} alt={`${camiseta.nome}`} width={520} height={480} />
+          <Image src={product.imageUrl} alt={product.name} width={520} height={480} />
 
           <footer>
-            <strong>{`${camiseta.nome}`}</strong>
-            <span>{`${camiseta.preço}`}</span>
+            <strong>{product.name}</strong>
+            <span>{`R$ ${product.price}0`}</span>
           </footer>
         </Product>
       ))
@@ -50,5 +62,30 @@ export default function Home() {
 
     </HomeContainer >
   )
+}
+
+export async function getServerSideProps() {
+  const response = await stripe.products.list({
+    expand: ['data.default_price']
+  })
+
+
+  const products = response.data.map(product => {
+    const price = product.default_price as Stripe.Price
+
+    return {
+      id: product.id,
+      name: product.name,
+      imageUrl: product.images[0],
+      price: price.unit_amount! / 100,
+    }
+  })
+
+  console.log(response.data)
+  return {
+    props: {
+      products
+    },
+  }
 }
 
