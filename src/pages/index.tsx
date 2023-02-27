@@ -6,6 +6,7 @@ import { HomeContainer, Product } from "@/styles/pages/home";
 
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
+import Link from "next/link";
 
 interface HomeProps {
   products: {
@@ -37,28 +38,23 @@ export default function Home({ products }: HomeProps) {
     },
   })
 
-  console.log(products)
-
   return (
     <HomeContainer
       ref={slideRef}
       className='keen-slider'
     >
       {products.map((product, i) => (
-        <Product
-          key={product.id}
-          className='keen-slider__slide'
-        >
-          <Image src={product.imageUrl} alt={product.name} width={520} height={480} />
+        <Link href={`/product/${product.id}`} key={product.id} >
+          <Product className='keen-slider__slide'>
+            <Image src={product.imageUrl} alt={product.name} width={520} height={480} />
 
-          <footer>
-            <strong>{product.name}</strong>
-            <span>{`R$ ${product.price}0`}</span>
-          </footer>
-        </Product>
-      ))
-      }
-
+            <footer>
+              <strong>{product.name}</strong>
+              <span>{product.price}</span>
+            </footer>
+          </Product>
+        </Link>
+      ))}
     </HomeContainer >
   )
 }
@@ -75,7 +71,10 @@ export async function getStaticProps() {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: price.unit_amount! / 100,
+      price: new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(price.unit_amount! / 100,)
     }
   })
 
