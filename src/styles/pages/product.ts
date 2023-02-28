@@ -31,7 +31,7 @@ export const ImageContainer = styled('div', {
 export const ProductDetails = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  
+
   h1: {
     fontSize: '$2xl',
     color: '$gray300',
@@ -55,10 +55,10 @@ export const ProductDetails = styled('div', {
     marginTop: 'auto',
     border: 0,
     padding: '1.25rem',
-    
+
     backgroundColor: '$green500',
     color: 'white',
-    
+
     borderRadius: 8,
     cursor: 'pointer',
 
